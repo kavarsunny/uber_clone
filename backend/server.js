@@ -1,15 +1,12 @@
-const http = require("http");
-const app = require("./app");
-
-const PORT = process.env.PORT || 5000;
+const http = require('http');
+const app = require('./app');
+const { initializeSocket } = require('./socket');
+const port = process.env.PORT || 5000;
 
 const server = http.createServer(app);
 
-server.listen(PORT, () => {
-  console.log(` Server is running on port:${PORT}`);
-});
+initializeSocket(server);
 
-
-server.on("error", (err) => {
-  console.error(" Server Error for:", err.message);
+server.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });

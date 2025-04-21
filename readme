@@ -1,0 +1,57 @@
+# User Registration Endpoint
+
+## Endpoint
+POST /users/register
+
+## Description
+This endpoint allows a new user to register by providing their details. Upon successful registration, a user object and an authentication token are returned.
+
+## Request Body
+The request body must be in JSON format and include the following fields:
+
+- `fullname`: An object containing:
+  - `firstname`: A string representing the user's first name (required, minimum length: 3 characters).
+  - `lastname`: A string representing the user's last name (optional).
+- `email`: A string representing the user's email address (required, must be a valid email format).
+- `password`: A string representing the user's password (required, minimum length: 6 characters).
+
+### Example Request
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "password": "securepassword"
+}
+
+## Responses
+- **201 Created**: User successfully registered.
+  - Response body:
+  {
+    "user": {
+      "fullname": {
+        "firstname": "John",
+        "lastname": "Doe"
+      },
+      "email": "john.doe@example.com"
+    },
+    "token": "JWT_TOKEN"
+  }
+
+- **400 Bad Request**: If validation fails or required fields are missing.
+  - Response body:
+  {
+    "errors": [
+      {
+        "msg": "Invalid Email",
+        "param": "email"
+      }
+    ]
+  }
+
+- **500 Internal Server Error**: If there is a server error during registration.
+  - Response body:
+  {
+    "error": "Error message"
+  }
